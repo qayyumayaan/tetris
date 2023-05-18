@@ -1,6 +1,12 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
-const scale = 20;
+const scale = 30;
+
+const matrixWidth = 10;
+const matrixHeight = 22;
+
+canvas.width = matrixWidth * scale;
+canvas.height = matrixHeight * scale;
 
 context.scale(scale, scale);
 
@@ -11,6 +17,8 @@ function createMatrix(width, height) {
   }
   return matrix;
 }
+
+
 
 // Define an array of random colors for each block
 const colors = [
@@ -246,7 +254,7 @@ function arenaSweep() {
   }
 }
 
-const matrix = createMatrix(12, 20);
+const matrix = createMatrix(matrixWidth, matrixHeight);
 
 const player = {
   pos: { x: 0, y: 0 },
