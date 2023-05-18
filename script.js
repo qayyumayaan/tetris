@@ -275,3 +275,13 @@ document.getElementById('rotate-right').addEventListener('click', () => {
 document.getElementById('move-down').addEventListener('click', () => {
   playerDrop();
 });
+
+document.getElementById('drop').addEventListener('click', () => {
+  while (!collide(matrix, player)) {
+    player.pos.y++;
+  }
+  player.pos.y--;
+  merge(matrix, player);
+  playerReset();
+  arenaSweep();
+});
