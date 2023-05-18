@@ -81,7 +81,7 @@ function rotate(matrix, dir) {
   }
 }
 
-function playerDrop() {
+function playerDown() {
   player.pos.y++;
   if (collide(matrix, player)) {
     player.pos.y--;
@@ -90,6 +90,16 @@ function playerDrop() {
     arenaSweep();
   }
   dropCounter = 0;
+}
+
+function playerDrop() {
+  while (!collide(matrix, player)) {
+    player.pos.y++;
+  }
+  player.pos.y--;
+  merge(matrix, player);
+  playerReset();
+  arenaSweep();
 }
 
 function playerMove(dir) {
@@ -137,7 +147,7 @@ function update(time = 0) {
 
   dropCounter += deltaTime;
   if (dropCounter > dropInterval) {
-    playerDrop();
+    playerDown();
   }
 
   draw();
@@ -158,20 +168,14 @@ document.addEventListener('keydown', event => {
   } else if (event.keyCode === 39) {
     playerMove(1); // Right arrow key
   } else if (event.keyCode === 40) {
-    playerDrop(); // Down arrow key
+    playerDown(); // Down arrow key
   } else if (event.keyCode === 81) {
     playerRotate(-1); // Q key (counter-clockwise)
   } else if (event.keyCode === 87) {
     playerRotate(1); // W key (clockwise)
   } else if (event.keyCode === 38) {
     // Up arrow key: Drop the piece to the lowest position
-    while (!collide(matrix, player)) {
-      player.pos.y++;
-    }
-    player.pos.y--;
-    merge(matrix, player);
-    playerReset();
-    arenaSweep();
+    playerDrop()
   }
 });
 
@@ -282,15 +286,9 @@ document.getElementById('rotate-right').addEventListener('click', () => {
 });
 
 document.getElementById('move-down').addEventListener('click', () => {
-  playerDrop();
+  playerDown();
 });
 
 document.getElementById('drop').addEventListener('click', () => {
-  while (!collide(matrix, player)) {
-    player.pos.y++;
-  }
-  player.pos.y--;
-  merge(matrix, player);
-  playerReset();
-  arenaSweep();
+  playerDrop();
 });
