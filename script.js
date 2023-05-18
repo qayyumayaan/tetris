@@ -179,17 +179,6 @@ document.addEventListener('keydown', event => {
   }
 });
 
-// const colors = [
-//   null,
-//   'purple',
-//   'yellow',
-//   'orange',
-//   'blue',
-//   'aqua',
-//   'green',
-//   'red',
-// ];
-
 function createPiece(type) {
   if (type === 'I') {
     return [
