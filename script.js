@@ -256,3 +256,22 @@ const player = {
 playerReset();
 update();
 
+document.getElementById('move-left').addEventListener('click', () => {
+  playerMove(-1);
+});
+
+document.getElementById('move-right').addEventListener('click', () => {
+  playerMove(1);
+});
+
+document.getElementById('rotate-left').addEventListener('click', () => {
+  playerRotate(-1);
+});
+
+document.getElementById('rotate-right').addEventListener('click', () => {
+  playerRotate(1);
+});
+
+document.getElementById('move-down').addEventListener('click', () => {
+  playerDrop();
+});

@@ -1,6 +1,14 @@
 canvas {
-    border: 1px solid #000;
-    display: block;
-    margin: 0 auto;
-  }
-  
+  border: 1px solid #000;
+  display: block;
+  margin: 0 auto;
+}
+
+#buttons {
+  text-align: center;
+  margin-top: 10px;
+}
+
+button {
+  margin: 5px;
+}
