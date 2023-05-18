@@ -163,6 +163,15 @@ document.addEventListener('keydown', event => {
     playerRotate(-1); // Q key (counter-clockwise)
   } else if (event.keyCode === 87) {
     playerRotate(1); // W key (clockwise)
+  } else if (event.keyCode === 38) {
+    // Up arrow key: Drop the piece to the lowest position
+    while (!collide(matrix, player)) {
+      player.pos.y++;
+    }
+    player.pos.y--;
+    merge(matrix, player);
+    playerReset();
+    arenaSweep();
   }
 });
 
