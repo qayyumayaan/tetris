@@ -12,16 +12,31 @@ function createMatrix(width, height) {
   return matrix;
 }
 
+// Define an array of random colors for each block
+const colors = [
+  null,           // Empty block
+  'purple',       // Color for I-block
+  'yellow',       // Color for L-block
+  'orange',       // Color for J-block
+  'blue',         // Color for O-block
+  'aqua',         // Color for T-block
+  'green',        // Color for S-block
+  'red',          // Color for Z-block
+];
+
 function drawMatrix(matrix, offset) {
   matrix.forEach((row, y) => {
     row.forEach((value, x) => {
       if (value !== 0) {
-        context.fillStyle = 'blue';
+        // Assign a random color to each block
+        const color = colors[value];
+        context.fillStyle = color;
         context.fillRect(x + offset.x, y + offset.y, 1, 1);
       }
     });
   });
 }
+
 
 function merge(matrix, player) {
   player.matrix.forEach((row, y) => {
@@ -151,16 +166,16 @@ document.addEventListener('keydown', event => {
   }
 });
 
-const colors = [
-  null,
-  'purple',
-  'yellow',
-  'orange',
-  'blue',
-  'aqua',
-  'green',
-  'red',
-];
+// const colors = [
+//   null,
+//   'purple',
+//   'yellow',
+//   'orange',
+//   'blue',
+//   'aqua',
+//   'green',
+//   'red',
+// ];
 
 function createPiece(type) {
   if (type === 'I') {
