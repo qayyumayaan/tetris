@@ -186,13 +186,13 @@ function draw() {
   // Draw the preview piece
   drawPreview();
 
-  if (isPaused) {
-    // Draw the "Paused" text
-    context.fillStyle = 'white';
-    context.font = 'bold 20px Arial';
-    context.textAlign = 'center';
-    context.fillText('Paused', canvas.width / 2, canvas.height / 2);
-  }
+  // if (isPaused) {
+  //   // Draw the "Paused" text
+  //   context.fillStyle = 'white';
+  //   context.font = 'bold 20px Arial';
+  //   context.textAlign = 'center';
+  //   context.fillText('Paused', canvas.width / 2, canvas.height / 2);
+  // }
 }
 
 function arenaSweep() {
