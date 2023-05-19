@@ -13,14 +13,22 @@ var sliderValue = slider.value;
 
 let dropInterval = 1000 / sliderValue; // seconds basically
 
+var label = document.querySelector('label[for="difficultySlider"]');
+label.innerText = "Level 1: "
+
 function handleSliderChange() {
   // Read the updated value from the slider
   var slider = document.getElementById("difficultySlider");
   var sliderValue = slider.value;
 
+  // Update the label with the slider value
+  var label = document.querySelector('label[for="difficultySlider"]');
+  label.innerText = "Level " + sliderValue + ": ";
+
   // Update the dropInterval value
   dropInterval = 1000 / sliderValue; // seconds basically
 }
+
 
 slider.addEventListener("input", handleSliderChange);
 
@@ -193,9 +201,9 @@ document.addEventListener('keydown', event => {
     playerMove(1); 
   } else if (event.key === "ArrowDown") {
     playerDown();
-  } else if (event.key === "Q") {
+  } else if (event.key.toLowerCase() === "q") {
     playerRotate(-1); 
-  } else if (event.key === "W") {
+  } else if (event.key.toLowerCase() === "w" ) {
     playerRotate(1); // W key (clockwise)
   } else if (event.key === "ArrowUp") {
     // Up arrow key: Drop the piece to the lowest position
