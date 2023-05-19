@@ -1,4 +1,17 @@
 
+// Define an array of random colors for each block
+export const colors = [
+    null,           // Empty block
+    'purple',       // Color for I-block
+    'yellow',       // Color for L-block
+    'orange',       // Color for J-block
+    'blue',         // Color for O-block
+    'aqua',         // Color for T-block
+    'green',        // Color for S-block
+    'red',          // Color for Z-block
+  ];
+
+
 export function createPiece(type) {
     if (type === 'I') {
       return [

@@ -1,4 +1,4 @@
-import { createPiece } from "./pieces.js";
+import { colors, createPiece } from "./pieces.js";
 
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
@@ -47,17 +47,6 @@ function createMatrix(width, height) {
 
 
 
-// Define an array of random colors for each block
-const colors = [
-  null,           // Empty block
-  'purple',       // Color for I-block
-  'yellow',       // Color for L-block
-  'orange',       // Color for J-block
-  'blue',         // Color for O-block
-  'aqua',         // Color for T-block
-  'green',        // Color for S-block
-  'red',          // Color for Z-block
-];
 
 function drawMatrix(matrix, offset) {
   matrix.forEach((row, y) => {
