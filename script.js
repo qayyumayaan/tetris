@@ -6,7 +6,7 @@ export const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 
 canvas.width = matrixWidth * scale;
-canvas.height = matrixHeight * scale; 
+canvas.height = matrixHeight * scale;
 
 var slider = document.getElementById("difficultySlider");
 var sliderValue = slider.value;
@@ -231,3 +231,18 @@ document.getElementById('move-down').addEventListener('click', () => {
 document.getElementById('drop').addEventListener('click', () => {
   playerDrop();
 });
+
+document.getElementById('reset').addEventListener('click', () => {
+  resetGame();
+});
+
+function resetGame() {
+  // Reset the matrix and player properties
+  matrix.forEach(row => row.fill(0));
+  playerReset();
+  dropInterval = 1000 / sliderValue;
+  dropCounter = 0;
+  player.score = 0;
+  player.lines = 0;
+}
+
