@@ -14,7 +14,9 @@ var sliderValue = slider.value;
 let dropInterval = 1000 / sliderValue; // milliseconds basically
 
 var label = document.querySelector('label[for="difficultySlider"]');
-label.innerText = "Level 1: "
+label.innerText = "Level 1: ";
+
+let isPaused = false;
 
 function handleSliderChange() {
   // Read the updated value from the slider
@@ -72,9 +74,10 @@ function collide(matrix, player) {
   const [m, o] = [player.matrix, player.pos];
   for (let y = 0; y < m.length; ++y) {
     for (let x = 0; x < m[y].length; ++x) {
-      if (m[y][x] !== 0 &&
-        (matrix[y + o.y] &&
-        matrix[y + o.y][x + o.x]) !== 0) {
+      if (
+        m[y][x] !== 0 &&
+        (matrix[y + o.y] && matrix[y + o.y][x + o.x]) !== 0
+      ) {
         return true;
       }
     }
@@ -85,13 +88,7 @@ function collide(matrix, player) {
 function rotate(matrix, dir) {
   for (let y = 0; y < matrix.length; ++y) {
     for (let x = 0; x < y; ++x) {
-      [
-        matrix[x][y],
-        matrix[y][x],
-      ] = [
-        matrix[y][x],
-        matrix[x][y],
-      ];
+      [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
     }
   }
   if (dir > 0) {
@@ -133,8 +130,7 @@ export function playerReset() {
   const pieces = 'ILJOTSZ';
   player.matrix = createPiece(pieces[Math.floor(Math.random() * pieces.length)]);
   player.pos.y = 0;
-  player.pos.x = Math.floor(matrix[0].length / 2) -
-    Math.floor(player.matrix[0].length / 2);
+  player.pos.x = Math.floor(matrix[0].length / 2) - Math.floor(player.matrix[0].length / 2);
   if (collide(matrix, player)) {
     matrix.forEach(row => row.fill(0));
   }
@@ -159,16 +155,19 @@ export function playerRotate(dir) {
 
 let dropCounter = 0;
 let lastTime = 0;
+
 function update(time = 0) {
-  const deltaTime = time - lastTime;
-  lastTime = time;
+  if (!isPaused) {
+    const deltaTime = time - lastTime;
+    lastTime = time;
 
-  dropCounter += deltaTime;
-  if (dropCounter > dropInterval) {
-    playerDown();
+    dropCounter += deltaTime;
+    if (dropCounter > dropInterval) {
+      playerDown();
+    }
+
+    draw();
   }
-
-  draw();
   requestAnimationFrame(update);
 }
 
@@ -236,6 +235,10 @@ document.getElementById('reset').addEventListener('click', () => {
   resetGame();
 });
 
+document.getElementById('pause').addEventListener('click', () => {
+  togglePause();
+});
+
 function resetGame() {
   // Reset the matrix and player properties
   matrix.forEach(row => row.fill(0));
@@ -244,5 +247,12 @@ function resetGame() {
   dropCounter = 0;
   player.score = 0;
   player.lines = 0;
+  isPaused = false;
 }
 
+function togglePause() {
+  isPaused = !isPaused;
+  if (isPaused) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
