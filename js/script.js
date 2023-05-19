@@ -108,6 +108,7 @@ export function playerDown() {
     arenaSweep();
   }
   dropCounter = 0;
+  player.score += 1; // Add points for a soft drop
 }
 
 export function playerDrop() {
@@ -119,6 +120,7 @@ export function playerDrop() {
   merge(matrix, player);
   playerReset();
   arenaSweep();
+  player.score += 2; // Add points for a hard drop
 }
 
 export function playerMove(dir) {
@@ -145,7 +147,11 @@ export function playerReset() {
   player.pos.y = 0;
   player.pos.x = Math.floor(matrix[0].length / 2) - Math.floor(player.matrix[0].length / 2);
   if (collide(matrix, player)) {
-    matrix.forEach(row => row.fill(0));
+    // Game over
+    isPaused = true;
+    const scoreElement = document.getElementById("score");
+    scoreElement.innerText = "Game over! Your score was " + player.score + ". Great work!";
+    return;
   }
 }
 
@@ -223,7 +229,11 @@ function arenaSweep() {
 
     if (player.lines % 10 === 0) {
       // Increase the speed of the game every 10 cleared lines
-      dropInterval -= 100;
+      sliderValue++
+      label.innerText = "Level " + sliderValue + ": ";
+      // Update the dropInterval value
+      dropInterval = 1000 / sliderValue;
+      document.getElementById("difficultySlider") = sliderValue
     }
   }
 }
