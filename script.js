@@ -6,7 +6,7 @@ export const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 
 canvas.width = matrixWidth * scale;
-canvas.height = matrixHeight * scale;
+canvas.height = matrixHeight * scale; 
 
 var slider = document.getElementById("difficultySlider");
 var sliderValue = slider.value;
@@ -29,11 +29,9 @@ function handleSliderChange() {
   dropInterval = 1000 / sliderValue;
 }
 
-
 slider.addEventListener("input", handleSliderChange);
 
 context.scale(scale, scale);
-
 
 function drawMatrix(matrix, offset) {
   matrix.forEach((row, y) => {
@@ -46,6 +44,16 @@ function drawMatrix(matrix, offset) {
       }
     });
   });
+}
+
+function drawPreview() {
+  const previewMatrix = player.matrix;
+  const previewOffset = { x: player.pos.x, y: player.pos.y };
+  while (!collide(matrix, { matrix: previewMatrix, pos: previewOffset })) {
+    previewOffset.y++;
+  }
+  previewOffset.y--;
+  drawMatrix(previewMatrix, { x: previewOffset.x, y: previewOffset.y });
 }
 
 document.addEventListener('keydown', handleKeyDown);
@@ -133,24 +141,23 @@ export function playerReset() {
 }
 
 export function playerRotate(dir) {
-    const pos = player.pos.x;
-    let offset = 1;
-    rotate(player.matrix, dir);
-  
-    while (collide(matrix, player)) {
-      player.pos.x += offset;
-      offset = -(offset + (offset > 0 ? 1 : -1));
-  
-      if (offset > player.matrix[0].length) {
-        rotate(player.matrix, -dir);
-        player.pos.x = pos;
-        return;
-      }
+  const pos = player.pos.x;
+  let offset = 1;
+  rotate(player.matrix, dir);
+
+  while (collide(matrix, player)) {
+    player.pos.x += offset;
+    offset = -(offset + (offset > 0 ? 1 : -1));
+
+    if (offset > player.matrix[0].length) {
+      rotate(player.matrix, -dir);
+      player.pos.x = pos;
+      return;
     }
-  }  
+  }
+}
 
 let dropCounter = 0;
-
 let lastTime = 0;
 function update(time = 0) {
   const deltaTime = time - lastTime;
@@ -171,10 +178,10 @@ function draw() {
 
   drawMatrix(matrix, { x: 0, y: 0 });
   drawMatrix(player.matrix, player.pos);
+
+  // Draw the preview piece
+  drawPreview();
 }
-
-
-
 
 function arenaSweep() {
   outer: for (let y = matrix.length - 1; y > 0; --y) {
@@ -198,9 +205,6 @@ function arenaSweep() {
 }
 
 const matrix = createMatrix(matrixWidth, matrixHeight);
-
-
-
 playerReset();
 update();
 
