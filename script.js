@@ -1,6 +1,6 @@
-import { colors, createPiece } from "./pieces.js";
+import { colors, createPiece, createMatrix } from "./pieces.js";
 
-const canvas = document.getElementById('tetris');
+export const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 const scale = 30;
 
@@ -36,15 +36,6 @@ slider.addEventListener("input", handleSliderChange);
 
 
 context.scale(scale, scale);
-
-function createMatrix(width, height) {
-  const matrix = [];
-  while (height--) {
-    matrix.push(new Array(width).fill(0));
-  }
-  return matrix;
-}
-
 
 
 

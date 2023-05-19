@@ -1,3 +1,4 @@
+import { canvas } from "./script.js"
 
 // Define an array of random colors for each block
 export const colors = [
@@ -57,3 +58,13 @@ export function createPiece(type) {
       ];
     }
   }
+
+
+export function createMatrix(width, height) {
+    const matrix = [];
+    while (height--) {
+        matrix.push(new Array(width).fill(0));
+    }
+    return matrix;
+}
+
