@@ -1,11 +1,8 @@
 import { colors, createPiece, createMatrix } from "./pieces.js";
+import { scale, matrixWidth, matrixHeight, player } from "./config.js";
 
 export const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
-const scale = 30;
-
-const matrixWidth = 10;
-const matrixHeight = 22;
 
 canvas.width = matrixWidth * scale;
 canvas.height = matrixHeight * scale;
@@ -13,7 +10,7 @@ canvas.height = matrixHeight * scale;
 var slider = document.getElementById("difficultySlider");
 var sliderValue = slider.value;
 
-let dropInterval = 1000 / sliderValue; // seconds basically
+let dropInterval = 1000 / sliderValue; // milliseconds basically
 
 var label = document.querySelector('label[for="difficultySlider"]');
 label.innerText = "Level 1: "
@@ -28,15 +25,13 @@ function handleSliderChange() {
   label.innerText = "Level " + sliderValue + ": ";
 
   // Update the dropInterval value
-  dropInterval = 1000 / sliderValue; // seconds basically
+  dropInterval = 1000 / sliderValue;
 }
 
 
 slider.addEventListener("input", handleSliderChange);
 
-
 context.scale(scale, scale);
-
 
 
 function drawMatrix(matrix, offset) {
@@ -217,12 +212,7 @@ function arenaSweep() {
 
 const matrix = createMatrix(matrixWidth, matrixHeight);
 
-const player = {
-  pos: { x: 0, y: 0 },
-  matrix: null,
-  score: 0,
-  lines: 0,
-};
+
 
 playerReset();
 update();
