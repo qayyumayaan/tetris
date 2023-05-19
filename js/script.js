@@ -129,10 +129,19 @@ export function playerMove(dir) {
   }
 }
 
+let lastPiece = null;
+
 export function playerReset() {
   if (isPaused) return; 
   const pieces = 'ILJOTSZ';
-  player.matrix = createPiece(pieces[Math.floor(Math.random() * pieces.length)]);
+  let nextPiece;
+
+  do {
+    nextPiece = pieces[Math.floor(Math.random() * pieces.length)];
+  } while (nextPiece === lastPiece);
+
+  lastPiece = nextPiece;
+  player.matrix = createPiece(nextPiece);
   player.pos.y = 0;
   player.pos.x = Math.floor(matrix[0].length / 2) - Math.floor(player.matrix[0].length / 2);
   if (collide(matrix, player)) {
