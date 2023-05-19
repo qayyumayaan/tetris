@@ -8,6 +8,23 @@ const matrixHeight = 22;
 canvas.width = matrixWidth * scale;
 canvas.height = matrixHeight * scale;
 
+var slider = document.getElementById("difficultySlider");
+var sliderValue = slider.value;
+
+let dropInterval = 1000 / sliderValue; // seconds basically
+
+function handleSliderChange() {
+  // Read the updated value from the slider
+  var slider = document.getElementById("difficultySlider");
+  var sliderValue = slider.value;
+
+  // Update the dropInterval value
+  dropInterval = 1000 / sliderValue; // seconds basically
+}
+
+slider.addEventListener("input", handleSliderChange);
+
+
 context.scale(scale, scale);
 
 function createMatrix(width, height) {
@@ -146,7 +163,6 @@ function playerRotate(dir) {
   }  
 
 let dropCounter = 0;
-let dropInterval = 1000;
 
 let lastTime = 0;
 function update(time = 0) {
