@@ -99,6 +99,7 @@ function rotate(matrix, dir) {
 }
 
 export function playerDown() {
+  if (isPaused) return; 
   player.pos.y++;
   if (collide(matrix, player)) {
     player.pos.y--;
@@ -110,6 +111,7 @@ export function playerDown() {
 }
 
 export function playerDrop() {
+  if (isPaused) return; 
   while (!collide(matrix, player)) {
     player.pos.y++;
   }
@@ -120,6 +122,7 @@ export function playerDrop() {
 }
 
 export function playerMove(dir) {
+  if (isPaused) return;
   player.pos.x += dir;
   if (collide(matrix, player)) {
     player.pos.x -= dir;
@@ -127,6 +130,7 @@ export function playerMove(dir) {
 }
 
 export function playerReset() {
+  if (isPaused) return; 
   const pieces = 'ILJOTSZ';
   player.matrix = createPiece(pieces[Math.floor(Math.random() * pieces.length)]);
   player.pos.y = 0;
@@ -137,6 +141,7 @@ export function playerReset() {
 }
 
 export function playerRotate(dir) {
+  if (isPaused) return; 
   const pos = player.pos.x;
   let offset = 1;
   rotate(player.matrix, dir);
@@ -180,6 +185,14 @@ function draw() {
 
   // Draw the preview piece
   drawPreview();
+
+  if (isPaused) {
+    // Draw the "Paused" text
+    context.fillStyle = 'white';
+    context.font = 'bold 20px Arial';
+    context.textAlign = 'center';
+    context.fillText('Paused', canvas.width / 2, canvas.height / 2);
+  }
 }
 
 function arenaSweep() {
@@ -254,5 +267,13 @@ function togglePause() {
   isPaused = !isPaused;
   if (isPaused) {
     context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  
+  // Disable/enable buttons based on pause state
+  const buttons = document.getElementsByTagName('button');
+  for (let i = 0; i < buttons.length; i++) {
+    if (buttons[i].id !== 'pause') {
+      buttons[i].disabled = isPaused;
+    }
   }
 }
