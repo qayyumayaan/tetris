@@ -1,5 +1,6 @@
 import { colors, createPiece, createMatrix } from "./pieces.js";
 import { scale, matrixWidth, matrixHeight, player } from "./config.js";
+import { handleKeyDown } from './input.js';
 
 export const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
@@ -47,6 +48,7 @@ function drawMatrix(matrix, offset) {
   });
 }
 
+document.addEventListener('keydown', handleKeyDown);
 
 function merge(matrix, player) {
   player.matrix.forEach((row, y) => {
@@ -91,7 +93,7 @@ function rotate(matrix, dir) {
   }
 }
 
-function playerDown() {
+export function playerDown() {
   player.pos.y++;
   if (collide(matrix, player)) {
     player.pos.y--;
@@ -102,7 +104,7 @@ function playerDown() {
   dropCounter = 0;
 }
 
-function playerDrop() {
+export function playerDrop() {
   while (!collide(matrix, player)) {
     player.pos.y++;
   }
@@ -112,14 +114,14 @@ function playerDrop() {
   arenaSweep();
 }
 
-function playerMove(dir) {
+export function playerMove(dir) {
   player.pos.x += dir;
   if (collide(matrix, player)) {
     player.pos.x -= dir;
   }
 }
 
-function playerReset() {
+export function playerReset() {
   const pieces = 'ILJOTSZ';
   player.matrix = createPiece(pieces[Math.floor(Math.random() * pieces.length)]);
   player.pos.y = 0;
@@ -130,7 +132,7 @@ function playerReset() {
   }
 }
 
-function playerRotate(dir) {
+export function playerRotate(dir) {
     const pos = player.pos.x;
     let offset = 1;
     rotate(player.matrix, dir);
@@ -171,22 +173,7 @@ function draw() {
   drawMatrix(player.matrix, player.pos);
 }
 
-document.addEventListener('keydown', event => {
-  if (event.key === "ArrowLeft") {
-    playerMove(-1);
-  } else if (event.key === "ArrowRight") {
-    playerMove(1); 
-  } else if (event.key === "ArrowDown") {
-    playerDown();
-  } else if (event.key.toLowerCase() === "q") {
-    playerRotate(-1); 
-  } else if (event.key.toLowerCase() === "w" ) {
-    playerRotate(1); // W key (clockwise)
-  } else if (event.key === "ArrowUp") {
-    // Up arrow key: Drop the piece to the lowest position
-    playerDrop()
-  }
-});
+
 
 
 function arenaSweep() {
