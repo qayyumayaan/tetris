@@ -195,6 +195,9 @@ function draw() {
   // Draw the preview piece
   drawPreview();
 
+  const scoreElement = document.getElementById("score");
+  scoreElement.innerText = "Score: " + player.score;
+
   // if (isPaused) {
   //   // Draw the "Paused" text
   //   context.fillStyle = 'white';
