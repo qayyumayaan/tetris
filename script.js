@@ -187,17 +187,17 @@ function draw() {
 }
 
 document.addEventListener('keydown', event => {
-  if (event.keyCode === 37) {
-    playerMove(-1); // Left arrow key
-  } else if (event.keyCode === 39) {
-    playerMove(1); // Right arrow key
-  } else if (event.keyCode === 40) {
-    playerDown(); // Down arrow key
-  } else if (event.keyCode === 81) {
-    playerRotate(-1); // Q key (counter-clockwise)
-  } else if (event.keyCode === 87) {
+  if (event.key === "ArrowLeft") {
+    playerMove(-1);
+  } else if (event.key === "ArrowRight") {
+    playerMove(1); 
+  } else if (event.key === "ArrowDown") {
+    playerDown();
+  } else if (event.key === "Q") {
+    playerRotate(-1); 
+  } else if (event.key === "W") {
     playerRotate(1); // W key (clockwise)
-  } else if (event.keyCode === 38) {
+  } else if (event.key === "ArrowUp") {
     // Up arrow key: Drop the piece to the lowest position
     playerDrop()
   }
