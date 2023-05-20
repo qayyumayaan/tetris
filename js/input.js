@@ -1,4 +1,4 @@
-import { playerMove, playerDown, playerRotate, playerDrop } from "./script.js"
+import { playerMove, playerDown, playerRotate, playerDrop, togglePause } from "./script.js"
 
 export function handleKeyDown(event) {
     if (event.key === "ArrowLeft") {
@@ -8,11 +8,12 @@ export function handleKeyDown(event) {
     } else if (event.key === "ArrowDown") {
       playerDown();
     } else if (event.key.toLowerCase() === "q") {
-      playerRotate(-1);
+      playerRotate(-1); // CCW
     } else if (event.key.toLowerCase() === "w") {
-      playerRotate(1); // W key (clockwise)
+      playerRotate(1); // CW
     } else if (event.key === "ArrowUp") {
-      // Up arrow key: Drop the piece to the lowest position
       playerDrop();
+    } else if (event.key.toLowerCase() === "e") {
+      togglePause();
     }
   }

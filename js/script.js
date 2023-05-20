@@ -285,7 +285,7 @@ function resetGame() {
   isPaused = false;
 }
 
-function togglePause() {
+export function togglePause() {
   isPaused = !isPaused;
   if (isPaused) {
     context.clearRect(0, 0, canvas.width, canvas.height);
