@@ -1,4 +1,4 @@
-import { playerMove, playerDown, playerRotate, playerDrop, togglePause } from "./script.js"
+import { playerMove, playerDown, playerRotate, playerDrop, togglePause, resetGame } from "./script.js"
 
 export function handleKeyDown(event) {
     if (event.key === "ArrowLeft") {
@@ -15,5 +15,7 @@ export function handleKeyDown(event) {
       playerDrop();
     } else if (event.key.toLowerCase() === "e") {
       togglePause();
+    } else if (event.key.toLowerCase() === "r") {
+      resetGame();
     }
   }

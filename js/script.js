@@ -274,7 +274,7 @@ document.getElementById('pause').addEventListener('click', () => {
   togglePause();
 });
 
-function resetGame() {
+export function resetGame() {
   // Reset the matrix and player properties
   matrix.forEach(row => row.fill(0));
   playerReset();
