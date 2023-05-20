@@ -11,7 +11,7 @@ canvas.height = matrixHeight * scale;
 var slider = document.getElementById("difficultySlider");
 var sliderValue = slider.value;
 
-let dropInterval = 1000 / sliderValue; // milliseconds basically
+let dropInterval = 1000 / sliderValue + 100; // milliseconds basically
 
 var label = document.querySelector('label[for="difficultySlider"]');
 label.innerText = "Level 1: ";
@@ -120,7 +120,7 @@ export function playerDrop() {
   merge(matrix, player);
   playerReset();
   arenaSweep();
-  player.score += 2; // Add points for a hard drop
+  player.score += 10; // Add points for a hard drop
 }
 
 export function playerMove(dir) {

@@ -13,7 +13,7 @@ export function handleKeyDown(event) {
       playerRotate(1); // CW
     } else if (event.key === "ArrowUp") {
       playerDrop();
-    } else if (event.key.toLowerCase() === "e") {
+    } else if (event.key === "Spacebar") {
       togglePause();
     } else if (event.key.toLowerCase() === "r") {
       resetGame();

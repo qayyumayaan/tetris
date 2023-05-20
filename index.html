@@ -19,7 +19,7 @@
   </head>
   <body class="h-100 text-center text-bg-dark">    
     <h1>Tetris</h1>
-    <canvas id="tetris" width="200" height="440"></canvas>
+    <canvas id="tetris"></canvas>
 
     <p></p>
     <div id="buttons">
@@ -32,11 +32,11 @@
     </div>
     <div class="mb-3">
       <label for="difficultySlider" class="form-label"></label>
-      <input id="difficultySlider" type="range" min="1" max="5" value="1" oninput="handleSliderChange()">
+      <input id="difficultySlider" type="range" min="1" max="10" value="1" oninput="handleSliderChange()">
     </div>
-    <p id="score"></p>
+    <h1 id="score"></h1>
     <button id="reset">Reset (R)</button>
-    <button id="pause">Pause (E)</button>
+    <button id="pause">Pause (Space)</button>
 
     <script type="module" src="js/script.js"></script>
 
